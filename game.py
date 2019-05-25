@@ -20,7 +20,7 @@ class Game:
         self.tk.update()
         self.canvas_height = 500
         self.canvas_width = 500
-        self.bg = PhotoImage(file="stickman/background.gif")
+        self.bg = PhotoImage(file="pics/background.gif")
         w = self.bg.width()
         h = self.bg.height()
         for x in range(0, 5):
@@ -108,14 +108,14 @@ class StickFigureSprite(Sprite):
     def __init__(self, game):
         Sprite.__init__(self, game)
         self.images_left = [
-            PhotoImage(file="stickman/figure-L1.gif") ,
-            PhotoImage(file="stickman/figure-L2.gif") ,
-            PhotoImage(file="stickman/figure-L3.gif") 
+            PhotoImage(file="pics/figure-L1.gif") ,
+            PhotoImage(file="pics/figure-L2.gif") ,
+            PhotoImage(file="pics/figure-L3.gif") 
         ]
         self.images_right = [
-            PhotoImage(file="stickman/figure-R1.gif") ,
-            PhotoImage(file="stickman/figure-R2.gif") ,
-            PhotoImage(file="stickman/figure-R3.gif") 
+            PhotoImage(file="pics/figure-R1.gif") ,
+            PhotoImage(file="pics/figure-R2.gif") ,
+            PhotoImage(file="pics/figure-R3.gif") 
         ]
         self.image = game.canvas.create_image(200, 470, \
                 image=self.images_left[0], anchor='nw')
@@ -260,25 +260,25 @@ class DoorSprite(Sprite):
              
              
 g = Game()
-platform1 = PlatformSprite(g, PhotoImage(file="stickman/platform1.gif"), \
+platform1 = PlatformSprite(g, PhotoImage(file="pics/platform1.gif"), \
       0, 480, 100, 10)
-platform2 = PlatformSprite(g, PhotoImage(file="stickman/platform1.gif"), \
+platform2 = PlatformSprite(g, PhotoImage(file="pics/platform1.gif"), \
       150, 440, 100, 10)
-platform3 = PlatformSprite(g, PhotoImage(file="stickman/platform1.gif"), \
+platform3 = PlatformSprite(g, PhotoImage(file="pics/platform1.gif"), \
       300, 400, 100, 10)
-platform4 = PlatformSprite(g, PhotoImage(file="stickman/platform1.gif"), \
+platform4 = PlatformSprite(g, PhotoImage(file="pics/platform1.gif"), \
       300, 160, 100, 10)      
-platform5 = PlatformSprite(g, PhotoImage(file="stickman/platform2.gif"), \
+platform5 = PlatformSprite(g, PhotoImage(file="pics/platform2.gif"), \
       175, 350, 66, 10)      
-platform6 = PlatformSprite(g, PhotoImage(file="stickman/platform2.gif"), \
+platform6 = PlatformSprite(g, PhotoImage(file="pics/platform2.gif"), \
       50, 300, 66, 10)      
-platform7 = PlatformSprite(g, PhotoImage(file="stickman/platform2.gif"), \
+platform7 = PlatformSprite(g, PhotoImage(file="pics/platform2.gif"), \
       170, 120, 66, 10)      
-platform8 = PlatformSprite(g, PhotoImage(file="stickman/platform2.gif"), \
+platform8 = PlatformSprite(g, PhotoImage(file="pics/platform2.gif"), \
       45, 60, 66, 10)      
-platform9 = PlatformSprite(g, PhotoImage(file="stickman/platform3.gif"), \
+platform9 = PlatformSprite(g, PhotoImage(file="pics/platform3.gif"), \
       170, 250, 32, 10)      
-platform10 = PlatformSprite(g, PhotoImage(file="stickman/platform3.gif"), \
+platform10 = PlatformSprite(g, PhotoImage(file="pics/platform3.gif"), \
       230, 200, 32, 10)      
       
             
@@ -292,7 +292,7 @@ g.sprites.append(platform7)
 g.sprites.append(platform8)
 g.sprites.append(platform9)
 g.sprites.append(platform10)
-door = DoorSprite(g, PhotoImage(file="stickman/door1.gif"), 45, 30, 40, 35)
+door = DoorSprite(g, PhotoImage(file="pics/door1.gif"), 45, 30, 40, 35)
 g.sprites.append(door)      
 sf = StickFigureSprite(g)
 g.sprites.append(sf)      
