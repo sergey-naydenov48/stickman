@@ -1,7 +1,8 @@
 from tkinter import *
 import random
 import time
-
+from util import collided_left, collided_right, collided_top, \
+    collided_bottom, Coords
 from inspect import currentframe
 
 def getlineno():
@@ -39,61 +40,7 @@ class Game:
             self.tk.update()
             time.sleep(0.01)
 
-class Coords:
-    def __init__(self, x1=0, y1=0, x2=0,y2=0) :
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
 
-    def __str__(self):
-        return "Coords(x1=%s, y1=%s, x2=%s, y2=%s)" % ( 
-                self.x1, self.y1, self.x2, self.y2)
-
-#def within_x(co1, co2):
-#    if (co1.x1 > co2.x1 and co1.x1 < co2.x2) \
-#            or (co1.x2 > co2.x1 and co1.x2 < co2.x2) \
-#            or (co2.x1 > co1.x1 and co2.x1 < co1.x2) \
-#            or (co2.x2 > co1.x1 and co2.x2 < co1.x2):
-#        return True
-#    else:
-#        return False
-
-def between(q, qmin, qmax):
-    return qmin <= q and q <= qmax
-
-def within_x(a, b):
-    return between(a.x1, b.x1, b.x2) \
-           or between(a.x2, b.x1, b.x2) \
-           or (a.x1 <= b.x1 and b.x2 <= a.x2)
-
-def within_y(a, b):
-    return between(a.y1, b.y1, b.y2) \
-           or between(a.y2, b.y1, b.y2) \
-           or (a.y1 <= b.y1 and b.y2 <= a.y2)
-
-def collided_left(a, b):
-    return within_y(a, b) and (b.x2 >= a.x1 and a.x1 >= b.x1)
-
-def collided_right(co1, co2):
-    if within_y(co1, co2):
-       if co1.x2 <= co2.x1 and co1.x2 >= co2.x2:
-           return True
-       return False
-       
-def collided_top(co1, co2):
-    if within_y(co1, co2):
-       if co1.y1 <= co2.y2 and co1.y1 >= co2.y1:
-           return True
-       return False
-       
-def collided_bottom(y, co1, co2):
-    if within_x(co1, co2):
-        y_calc = co1.y2 + y
-        if y_calc >= co2.y1 and y_calc <= co2.y2:
-            return True
-    return False
-                   
 class Sprite:
     def __init__(self, game):
         self.game = game
@@ -230,7 +177,7 @@ class StickFigureSprite(Sprite):
                     if sprite.endgame:
                         self.game.running = False
             if right and self.x > 0 and collided_right(co, sprite_co):
-                    slef.x = 0
+                    self.x = 0
                     right = False
                     if sprite.endgame:
                         self.game.running = False
