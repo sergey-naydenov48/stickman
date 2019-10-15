@@ -18,6 +18,7 @@ def strict_between(q, qmin, qmax):
     >>> strict_between(3, 1, 3)
     False
     """
+    q, qmin, qmax = int(q), int(qmin), int(qmax)
     if qmin > qmax:
         qmin, qmax = qmax, qmin
     return qmin < q and q < qmax
@@ -36,6 +37,7 @@ def between(q, qmin, qmax):
     >>> between(4, 1, 3)
     False
     """
+    q, qmin, qmax = int(q), int(qmin), int(qmax)
     return strict_between(q, qmin, qmax) or q in (qmin, qmax)
 
 
@@ -68,13 +70,16 @@ def segments_overlap(a1, a2, b1, b2):
     >>> segments_overlap(10, 15, 16, 9)
     True
     """
+    a1, a2, b1, b2 = int(a1), int(a2), int(b1), int(b2)
     if a1 > a2:
         a1, a2 = a2, a1
     if b1 > b2:
         b1, b2 = b2, b1
-    return strict_between(a1, b1, b2) \
-           or strict_between(a2, b1, b2) \
-           or (a1 <= b1 and b2 <= a2)
+    return (
+        strict_between(a1, b1, b2)
+        or strict_between(a2, b1, b2)
+        or (a1 <= b1 and b2 <= a2)
+    )
 
 
 class Coords(object):
@@ -99,20 +104,20 @@ def within_y(a, b):
 
 
 def collided_left(a, b):
-    return within_y(a, b) and between(a.x1, b.x1, b.x2)
+    return within_y(a, b) and strict_between(a.x1, b.x1, b.x2)
 
 
 def collided_right(a, b):
-    return within_y(a, b) and between(a.x2, b.x1, b.x2)
+    return within_y(a, b) and strict_between(a.x2, b.x1, b.x2)
 
 
 def collided_top(a, b):
-    return within_x(a, b) and between(a.y1, b.y1, b.y2)
+    return within_x(a, b) and strict_between(a.y1, b.y1, b.y2)
 
 
 def collided_bottom(y, a, b):
     if within_x(a, b):
         y_calc = a.y2 + y
-        if between(y_calc, b.y1, b.y2):
+        if strict_between(y_calc, b.y1, b.y2):
             return True
     return False

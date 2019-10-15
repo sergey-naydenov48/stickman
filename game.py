@@ -1,13 +1,20 @@
+# -*- coding: utf-8 -*-
+
 from tkinter import *
 import random
 import time
-from util import collided_left, collided_right, collided_top, \
-    collided_bottom, Coords
+
 from inspect import currentframe
+
+
+from util import Coords, within_x, within_y, collided_top, collided_bottom, \
+        collided_left, collided_right
+
 
 def getlineno():
     cf = currentframe()
     return cf.f_back.f_lineno
+
 
 class Game:
     def __init__(self):
@@ -39,7 +46,6 @@ class Game:
             self.tk.update_idletasks()
             self.tk.update()
             time.sleep(0.01)
-
 
 class Sprite:
     def __init__(self, game):
@@ -73,9 +79,19 @@ class StickFigureSprite(Sprite):
         self.jump_count = 0
         self.last_time = time.time()
         self.coordinates = Coords()
+        game.canvas.bind_all('<KeyPress-Down>', self.stop)            
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)            
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)            
         game.canvas.bind_all('<space>', self.jump)
+
+    def stop(self, evt):
+        if self.x < 0:
+            self.game.canvas.itemconfig(self.image, \
+                    image=self.images_left[2])
+        else:
+            self.game.canvas.itemconfig(self.image, \
+                    image=self.images_right[2])
+        self.x = 0
                  
     def turn_left(self, evt):
         if self.y == 0:
